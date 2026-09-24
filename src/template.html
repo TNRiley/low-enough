@@ -1,0 +1,1046 @@
+<title>Low Enough</title>
+<meta name="description" content="Washington has 10,405 flowering cherry trees that are nowhere near the Tidal Basin, and two-thirds of them stand under a power line. The city's blossom map is its overhead wire map.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  /* --- surfaces: warm blush paper, charcoal ink ---------------------- */
+  --paper:#FBF6F4; --card:#FFFFFF; --sunk:#F4ECE9; --rule:#E4D6D1;
+  --ink:#1C1714; --ink2:#5A4B46; --ink3:#8C7A74;
+  --wire:#3A3330;
+  /* --- ordinal bloom ramp: earliest to latest (validated) ------------ */
+  --b1:#E693AD; --b2:#D57193; --b3:#BF4E77; --b4:#9C355F; --b5:#702244;
+  --grey:#B9AAA5;
+  /* --- categorical pair: under wires / clear sky (validated) --------- */
+  --rose:#BF4E77; --sky:#1F6FB2;
+  --shadow:rgba(28,23,20,.14);
+  --mapbg:#EFE3DF; --mapland:#FFFFFF; --mapline:#D3BDB6; --mapwater:#D3E2EC;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#17120F; --card:#221B18; --sunk:#1B1512; --rule:#3A2E2A;
+  --ink:#F6EDE9; --ink2:#CDB9B2; --ink3:#9A8880;
+  --wire:#C9B8B2;
+  --b1:#FBC3D3; --b2:#F09EB9; --b3:#DE7A9C; --b4:#C4587E; --b5:#A03E62;
+  --grey:#6F5F5A;
+  --rose:#D4658C; --sky:#3E93D6;
+  --shadow:rgba(0,0,0,.5);
+  --mapbg:#100C0A; --mapland:#2C231F; --mapline:#54423C; --mapwater:#1B2932;
+}}
+:root[data-theme="dark"]{
+  --paper:#17120F; --card:#221B18; --sunk:#1B1512; --rule:#3A2E2A;
+  --ink:#F6EDE9; --ink2:#CDB9B2; --ink3:#9A8880;
+  --wire:#C9B8B2;
+  --b1:#FBC3D3; --b2:#F09EB9; --b3:#DE7A9C; --b4:#C4587E; --b5:#A03E62;
+  --grey:#6F5F5A;
+  --rose:#D4658C; --sky:#3E93D6;
+  --shadow:rgba(0,0,0,.5);
+  --mapbg:#100C0A; --mapland:#2C231F; --mapline:#54423C; --mapwater:#1B2932;
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 17px/1.62 "IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0;line-height:1.1;
+  text-wrap:balance;font-variation-settings:"opsz" 96}
+p{margin:0}
+a{color:var(--rose);text-underline-offset:3px}
+:focus-visible{outline:2.5px solid var(--sky);outline-offset:3px;border-radius:3px}
+.num,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+table{border-collapse:collapse}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,44px)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- the wire motif: a catenary strung between two poles ------- */
+.wires{display:block;width:100%;height:46px;margin:0;overflow:visible}
+.wires path{fill:none;stroke:var(--wire);stroke-width:1.1;opacity:.5}
+.wires .pole{stroke:var(--wire);stroke-width:2;opacity:.55}
+
+/* ---------- hero ------------------------------------------------------ */
+.hero{padding:clamp(40px,7vh,84px) 0 8px;position:relative}
+.eyebrow{font:500 12px/1.4 "IBM Plex Mono",monospace;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink3)}
+h1{font-size:clamp(58px,12vw,142px);font-weight:700;letter-spacing:-.025em;
+  margin:.14em 0 .18em;font-variation-settings:"opsz" 144}
+.dek{font-size:clamp(18px,2.1vw,22.5px);line-height:1.5;max-width:31em;color:var(--ink2)}
+.dek b{color:var(--ink);font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.fact{background:var(--card);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 15px;box-shadow:0 1px 2px var(--shadow)}
+.fact b{display:block;font:600 27px/1 "IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;color:var(--rose)}
+.fact span{display:block;font-size:13px;line-height:1.35;color:var(--ink2);margin-top:5px;max-width:15em}
+
+/* ---------- sections -------------------------------------------------- */
+section{padding:clamp(34px,6vh,66px) 0 0}
+.shead{display:flex;gap:16px;align-items:baseline;margin-bottom:12px}
+.sno{font:500 13px/1 "IBM Plex Mono",monospace;color:var(--ink3);padding-top:.5em;flex:none}
+.shead h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.015em}
+.prose{max-width:36em;display:grid;gap:14px;color:var(--ink2);font-size:17px}
+.prose b{color:var(--ink);font-weight:600}
+.prose .lede{font-size:19px;color:var(--ink)}
+
+/* ---------- figures --------------------------------------------------- */
+figure{margin:26px 0 0;background:var(--card);border:1px solid var(--rule);
+  border-radius:12px;box-shadow:0 1px 3px var(--shadow);overflow:hidden}
+figcaption{padding:13px 18px 15px;border-top:1px solid var(--rule);background:var(--sunk);
+  font-size:14px;line-height:1.5;color:var(--ink2)}
+figcaption b{color:var(--ink);font-weight:600}
+.figbody{padding:18px}
+.figtitle{font:600 15px/1.3 "IBM Plex Sans",sans-serif;color:var(--ink);margin-bottom:3px}
+.figsub{font-size:13.5px;color:var(--ink3);margin-bottom:16px}
+
+/* ---------- controls -------------------------------------------------- */
+.controls{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;
+  padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--sunk)}
+.cgroup{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.clabel{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink3)}
+button.seg{font:500 13.5px/1 "IBM Plex Sans",sans-serif;color:var(--ink2);
+  background:var(--card);border:1px solid var(--rule);border-radius:7px;
+  padding:8px 12px;cursor:pointer;transition:background .12s,color .12s,border-color .12s}
+button.seg:hover{border-color:var(--ink3);color:var(--ink)}
+button.seg[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tbtn{font:500 12.5px/1 "IBM Plex Sans",sans-serif;color:var(--ink3);background:none;
+  border:1px solid var(--rule);border-radius:6px;padding:6px 10px;cursor:pointer}
+.tbtn:hover{color:var(--ink);border-color:var(--ink3)}
+input[type=range]{accent-color:var(--rose);height:22px;cursor:pointer}
+
+/* ---------- map ------------------------------------------------------- */
+.mapwrap{position:relative;background:var(--sunk)}
+.mapwrap canvas{display:block;width:100%;height:auto;touch-action:pan-y}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;
+  padding:13px 18px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--ink2)}
+.lg{display:inline-flex;gap:7px;align-items:center;white-space:nowrap}
+.sw{width:13px;height:13px;border-radius:50%;flex:none;
+  box-shadow:0 0 0 1.5px var(--card)}
+.tip{position:absolute;pointer-events:none;z-index:6;background:var(--ink);color:var(--paper);
+  border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.5;max-width:250px;
+  box-shadow:0 4px 14px var(--shadow);opacity:0;transition:opacity .1s}
+.tip[data-on="1"]{opacity:1}
+.tip b{font-weight:600}
+.tip .k{color:#C8B6B0;font-size:11.5px;font-family:"IBM Plex Mono",monospace;
+  letter-spacing:.06em;text-transform:uppercase}
+
+/* ---------- ladder ---------------------------------------------------- */
+.ladder{display:grid;gap:3px}
+.lrow{display:grid;grid-template-columns:minmax(108px,20%) 1fr 54px;gap:11px;align-items:center;
+  font-size:14px;padding:2px 0;border-radius:5px}
+.lrow .nm{color:var(--ink2);text-align:right;line-height:1.25}
+.lrow .track{background:var(--sunk);border-radius:4px;height:17px;position:relative;overflow:hidden}
+.lrow .bar{position:absolute;inset:0 auto 0 0;background:var(--grey);border-radius:4px}
+.lrow .pct{font:500 13.5px/1 "IBM Plex Mono",monospace;color:var(--ink3);text-align:right}
+.lrow.hi{background:var(--sunk)}
+.lrow.hi .nm,.lrow.hi .pct{color:var(--ink);font-weight:600}
+.lrow.hi .bar{background:var(--rose)}
+.lrow.hi .track{background:var(--card);box-shadow:inset 0 0 0 1px var(--rule)}
+
+/* ---------- generic svg chart chrome ---------------------------------- */
+svg .grid{stroke:var(--rule);stroke-width:1}
+svg .axis{stroke:var(--ink3);stroke-width:1;opacity:.5}
+svg text{font-family:"IBM Plex Mono",monospace;font-size:11.5px;fill:var(--ink3)}
+svg text.lab{font-family:"IBM Plex Sans",sans-serif;font-size:12.5px;fill:var(--ink2)}
+svg text.strong{fill:var(--ink);font-weight:600}
+.chartwrap{position:relative}
+.chartwrap svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* ---------- data tables ----------------------------------------------- */
+.dtable{margin-top:14px;font-size:13.5px;width:100%;display:block;overflow-x:auto}
+.dtable table{width:100%;min-width:400px}
+.dtable th,.dtable td{padding:5px 9px;border-bottom:1px solid var(--rule);text-align:right;
+  white-space:nowrap}
+.dtable th:first-child,.dtable td:first-child{text-align:left}
+.dtable th{font:500 11.5px/1.3 "IBM Plex Mono",monospace;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink3)}
+.dtable td{color:var(--ink2);font-variant-numeric:tabular-nums}
+.dtable caption{caption-side:top;text-align:left;font-size:13px;color:var(--ink3);padding-bottom:7px}
+
+/* ---------- pull quote / callout -------------------------------------- */
+.note{border-left:3px solid var(--rose);padding:3px 0 3px 17px;margin:24px 0 0;
+  max-width:36em;color:var(--ink2);font-size:16px}
+.note b{color:var(--ink)}
+
+/* ---------- cultivar cards -------------------------------------------- */
+.cults{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px;margin-top:24px}
+.cult{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:14px 15px}
+.cult .dot{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:7px}
+.cult .nm{font-weight:600;font-size:14.5px}
+.cult .sci{font-style:italic;font-size:12.5px;color:var(--ink3);margin-top:1px}
+.cult .n{font:600 23px/1.1 "IBM Plex Mono",monospace;margin-top:10px;font-variant-numeric:tabular-nums}
+.cult .meta{font-size:12.5px;color:var(--ink3);margin-top:3px;line-height:1.45}
+
+footer{margin-top:60px;padding:26px 0 46px;border-top:1px solid var(--rule);
+  font-size:14px;color:var(--ink3);line-height:1.6}
+footer a{color:var(--ink2)}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .lrow{grid-template-columns:minmax(86px,32%) 1fr 46px;font-size:13px;gap:8px}
+  .controls{padding:11px 13px}
+  .figbody{padding:14px}
+  /* An SVG scaled into a 360px column renders its 11.5px labels at about 6px.
+     Rather than restyle every chart for narrow screens, the chart keeps its
+     geometry and the reader scrolls it sideways, like the data tables. */
+  .chartwrap{overflow-x:auto;overscroll-behavior-x:contain}
+  .chartwrap svg{min-width:620px}
+  .cults{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Quick Projects &middot; the trees of Washington DC</p>
+  <h1>Low&nbsp;Enough</h1>
+  <p class="dek">Washington has <b data-stat="orn">10,405</b> flowering cherry trees that are
+  nowhere near the Tidal Basin &mdash; on its streets, in its parks, outside its schools.
+  <b data-stat="ornUnderPct">63%</b> of them stand under a power line. That is not a coincidence,
+  and it is the whole reason they are there.</p>
+  <div class="facts">
+    <div class="fact"><b data-stat="orn">10,405</b><span>flowering cherries in public space, away from the Tidal Basin</span></div>
+    <div class="fact"><b data-stat="ornUnderPct">63%</b><span>of them under an overhead wire &mdash; against 19% for the city's oaks</span></div>
+    <div class="fact"><b data-stat="acres">106</b><span>acres of cherry canopy, measured from the city's lidar</span></div>
+    <div class="fact"><b data-stat="ward2">270</b><span>in Ward 2, which is the ward with the Tidal Basin in it</span></div>
+  </div>
+</header>
+
+<svg class="wires" viewBox="0 0 1000 46" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 8 Q125 34 250 8 Q375 34 500 8 Q625 34 750 8 Q875 34 1000 8"/>
+  <path d="M0 16 Q125 42 250 16 Q375 42 500 16 Q625 42 750 16 Q875 42 1000 16"/>
+  <line class="pole" x1="250" y1="2" x2="250" y2="46"/>
+  <line class="pole" x1="750" y1="2" x2="750" y2="46"/>
+</svg>
+
+<!-- ==================================================================== -->
+<section id="map">
+  <div class="shead"><span class="sno">01</span><h2>The other ten thousand</h2></div>
+  <div class="prose">
+    <p class="lede">Every spring the whole city goes to look at the same 3,800 trees.
+    The Tidal Basin grove is the one everybody means by &ldquo;the cherry blossoms,&rdquo;
+    it is about 70% Yoshino, and it fits in a ring you can walk in forty minutes.</p>
+    <p>The District's own tree inventory &mdash; every tree in public space, kept by the
+    Urban Forestry Division &mdash; records <b data-stat="prunus">12,829</b> trees of the
+    genus <i>Prunus</i>, of which <b data-stat="orn">10,405</b> are ornamental flowering
+    cherries. They are almost all somewhere else. Here they all are.</p>
+  </div>
+
+  <figure>
+    <div class="controls">
+      <div class="cgroup"><span class="clabel">Colour</span>
+        <button class="seg" data-mode="bloom" aria-pressed="true">Bloom order</button>
+        <button class="seg" data-mode="wires" aria-pressed="false">Overhead wires</button>
+        <button class="seg" data-mode="age" aria-pressed="false">Year planted</button>
+      </div>
+      <div class="cgroup"><span class="clabel">Ward</span>
+        <select id="wardsel" class="seg" style="padding:8px 10px">
+          <option value="0">all eight</option>
+        </select>
+      </div>
+    </div>
+    <div class="mapwrap">
+      <canvas id="bigmap" width="1500" height="1420" role="img"
+        aria-label="A map of Washington DC with a dot for each of 12,829 Prunus trees in the city's public-space tree inventory."></canvas>
+      <div class="tip" id="maptip" role="status"></div>
+    </div>
+    <div class="legend" id="maplegend"></div>
+    <figcaption>Every <i>Prunus</i> in the District's public-space tree inventory, one dot each.
+    The Tidal Basin grove is <b>not in this data</b> &mdash; those trees belong to the National Park
+    Service, which keeps its own books. The empty wedge in the middle of the map is the National Mall
+    and the federal core, for the same reason.</figcaption>
+  </figure>
+
+  <div class="cults" id="cultcards"></div>
+
+  <div class="note">The commonest flowering cherry on a Washington street is not the Yoshino
+  that rings the Tidal Basin. It is the <b>Kwanzan</b>, a fat double pink that opens about two
+  weeks later, when the festival is packing up.</div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="wires">
+  <div class="shead"><span class="sno">02</span><h2>Two-thirds of them stand under a wire</h2></div>
+  <div class="prose">
+    <p class="lede">The inventory records, for every tree, whether there is an overhead
+    utility line above it. For the city's <b data-stat="cityTrees">222,660</b> public trees as a
+    whole the answer is yes <b data-stat="cityUnderPct">28%</b> of the time. For the flowering
+    cherries it is <b data-stat="ornUnderPct">63%</b>.</p>
+    <p>Sorted by that share, the city's trees come out in a very orderly line, and the line is
+    not about species &mdash; it is about <b>height</b>. Everything at the top is a small tree:
+    lilac, Chinese pistache, cherry, crabapple, redbud, serviceberry, crape myrtle. Everything at
+    the bottom is a tree that gets big: oak, elm, London plane, tulip poplar, sweetgum, pine.</p>
+    <p>This is a planting rule made visible. Where a wire runs over the verge, the forester cannot
+    put in something that will grow into it, so they put in something that will not &mdash; a tree
+    that tops out around twenty-five feet. In Washington that tree is usually a cherry.</p>
+  </div>
+
+  <figure>
+    <div class="figbody">
+      <div class="figtitle">Share of each kind of street tree standing under an overhead wire</div>
+      <div class="figsub">Every genus with at least 800 trees in the District inventory.
+        <span class="mono" style="color:var(--rose)">Cherries highlighted.</span></div>
+      <div class="ladder" id="ladder"></div>
+      <button class="tbtn" data-table="laddertable" style="margin-top:14px">Show the numbers</button>
+      <div class="dtable" id="laddertable" hidden></div>
+    </div>
+    <figcaption>Read top to bottom and you are reading mature height, shortest first.
+    <b>Cherries sit third</b>, between the lilacs and the crabapples, and more than three times
+    higher than the oaks. This chart counts whole genera, so the cherry row also carries the
+    plums and the chokecherries and comes out at 64%; the flowering cherries on their own are
+    <b data-stat="ornUnderPct">63%</b>.</figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== -->
+<section id="wards">
+  <div class="shead"><span class="sno">03</span><h2>Where the wires are buried, nobody plants cherries</h2></div>
+  <div class="prose">
+    <p class="lede">Washington's eight wards do not share their wires evenly. Downtown and the
+    old rowhouse core put theirs underground long ago; the rest of the city did not. That split
+    turns out to predict, almost exactly, where the cherry trees are.</p>
+    <p>In Wards 1, 2 and 6 &mdash; where barely one street tree in a hundred has a wire above it
+    &mdash; cherries are about <b>2%</b> of the trees. In Wards 3, 4, 7 and 8, where roughly
+    four in ten do, cherries are <b>6% to 9%</b>. Across the eight wards the two shares track each
+    other at <b class="mono">r&nbsp;=&nbsp;0.92</b>.</p>
+    <p>Which produces the joke this page is named for. <b>Ward 2 contains the Tidal Basin</b>,
+    the Jefferson Memorial, the whole postcard. It also contains
+    <b data-stat="ward2">270</b> flowering cherries of its own &mdash; the fewest of any ward
+    in the city.</p>
+  </div>
+
+  <figure>
+    <div class="figbody">
+      <div class="figtitle">Overhead wires and cherry trees, by ward</div>
+      <div class="figsub">Each point is one ward. Horizontal: the share of its street trees with a
+        wire overhead. Vertical: the share that are cherries.</div>
+      <div class="chartwrap"><svg id="scatter" viewBox="0 0 700 420" role="img"
+        aria-label="Scatter plot of eight wards. Wards 1, 2 and 6 sit at the bottom left with almost no overhead wires and almost no cherries. Wards 3, 4, 5, 7 and 8 sit to the upper right."></svg></div>
+      <button class="tbtn" data-table="wardtable" style="margin-top:6px">Show the numbers</button>
+      <div class="dtable" id="wardtable" hidden></div>
+    </div>
+    <figcaption>The relationship is not a claim about cause in the trees &mdash; it is a claim
+    about the <b>people doing the planting</b>. A forester with a wire overhead reaches for a small
+    tree, and the small tree they reach for is a cherry.</figcaption>
+  </figure>
+
+  <div class="note">Worth saying plainly: this does not mean the wire wards got worse trees.
+  It means they got <b>different</b> trees, and one side effect is that the parts of Washington
+  with the most overhead cable are also the parts with the most blossom.</div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="season">
+  <div class="shead"><span class="sno">04</span><h2>Six weeks, in two waves</h2></div>
+  <div class="prose">
+    <p class="lede">The Tidal Basin has one date. Peak bloom there is defined as the day 70% of
+    the Yoshino flowers are open, it lasts several days, and the whole city plans around it.</p>
+    <p>The street trees do not work like that, because they are not all Yoshinos. Five cultivars
+    make up almost all of them, and the published bloom order spreads them over about
+    <b>six weeks</b>: Okame first, roughly a fortnight early; then the Higan cherries and the
+    Snow Geese; then the Yoshinos, with the Tidal Basin; then, a clear two weeks behind everything
+    else, the Kwanzans.</p>
+    <p>Two waves, with a real gap between them. On these windows the Yoshinos are over about
+    five days after peak and the Kwanzans have not started for another three, so for the best
+    part of a week Washington has almost no cherry blossom at all &mdash; which is roughly when
+    the last of the visitors are still arriving.</p>
+    <p>Drag the date. The map redraws with only the trees that should be in flower on that day,
+    and the chart shows how many that is.</p>
+  </div>
+
+  <figure>
+    <div class="controls">
+      <div class="cgroup" style="flex:1;min-width:260px">
+        <span class="clabel">Date</span>
+        <input type="range" id="dayslider" min="-24" max="24" value="-14" step="1" style="flex:1;min-width:150px"
+          aria-label="Days relative to Tidal Basin peak bloom">
+        <span class="mono" id="daylabel" style="min-width:8.5em;font-weight:600">&nbsp;</span>
+      </div>
+      <div class="cgroup">
+        <button class="seg" id="playbtn" aria-pressed="false">&#9654;&nbsp; Play the season</button>
+      </div>
+    </div>
+    <div class="mapwrap">
+      <canvas id="bloommap" width="1500" height="1300" role="img"
+        aria-label="The same map of Washington, showing only the cherry trees expected to be in flower on the selected date."></canvas>
+    </div>
+    <div class="figbody" style="border-top:1px solid var(--rule)">
+      <div class="figtitle">Flowering cherries in open flower, by day of the season</div>
+      <div class="figsub">Stacked by cultivar. Day 0 is Tidal Basin peak bloom.</div>
+      <div class="chartwrap"><svg id="seasonchart" viewBox="0 0 700 300" role="img"
+        aria-label="A stacked area chart of cherry trees in flower across the season, showing an early hump of Okame and Snow Goose, a peak at Yoshino time, and a separate late hump of Kwanzan."></svg></div>
+      <button class="tbtn" data-table="seasontable" style="margin-top:6px">Show the numbers</button>
+      <div class="dtable" id="seasontable" hidden></div>
+    </div>
+    <figcaption><b>This is a published order, not a forecast.</b> The offsets come from the
+    National Park Service's own descriptions of its varieties &mdash; Okame &ldquo;the earliest
+    flowering cherry,&rdquo; the Higans &ldquo;about a week before the Yoshino,&rdquo; Kwanzan
+    &ldquo;two weeks later than the Yoshino&rdquo; &mdash; applied to trees the Park Service does
+    not own. A given tree in a given spring will be a few days either side. Snow Goose is the least
+    certain of the five: it is a reliably early cherry with no published DC offset, so it carries
+    the widest band here. The <b data-stat="unid">2,247</b> cherries the inventory records only as
+    <i>Prunus</i>, with no cultivar, cannot be placed at all and are left out of this chart.</figcaption>
+  </figure>
+
+  <div class="note">On the day the Tidal Basin peaks, about <b data-stat="openAtPeak">4,270</b>
+  of the District's own cherries should be open &mdash; the Yoshinos and the tail of the Snow
+  Geese. The single biggest group in the city, the <b data-stat="kwanzan">2,460</b> Kwanzans,
+  has not started.</div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="planting">
+  <div class="shead"><span class="sno">05</span><h2>Close to 300 a year, and slowly leaving the wires</h2></div>
+  <div class="prose">
+    <p class="lede">The inventory carries a planting date for <b data-stat="dated">6,635</b> of
+    the flowering cherries. Since 2004 the District has put in
+    <b data-stat="perYear">288</b> a year on average, and the mix has kept changing. Snow Goose
+    was a few dozen a year until about 2010 and then became a house standard, peaking at 192 in
+    2019. Okame went in at single digits through the late 2000s and has run above a hundred a
+    year since 2022.</p>
+    <p>The share going in under a wire has been falling the whole time: <b>94%</b> of the
+    cherries planted before 2005, <b>61%</b> of those planted since 2020. Some of that is
+    undergrounding, some is a wider planting list. The cherry is slowly becoming a tree
+    Washington chooses rather than a tree it settles for.</p>
+  </div>
+
+  <figure>
+    <div class="figbody">
+      <div class="figtitle">Flowering cherries planted each year, by cultivar</div>
+      <div class="figsub">Bars are counts. The line is the share of that year's planting that
+        went in under an overhead wire.</div>
+      <div class="chartwrap"><svg id="plantchart" viewBox="0 0 700 340" role="img"
+        aria-label="Stacked bars of cherries planted per year since 1995 by cultivar, with a falling line showing the share planted under overhead wires."></svg></div>
+      <button class="tbtn" data-table="planttable" style="margin-top:6px">Show the numbers</button>
+      <div class="dtable" id="planttable" hidden></div>
+    </div>
+    <figcaption>Two scales, deliberately kept apart: the bars are counts on their own axis and
+    the wire share is drawn as a separate strip beneath them, not as a second y-axis on the same
+    plot. The 2026 bar is a part year.</figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== -->
+<section id="method">
+  <div class="shead"><span class="sno">06</span><h2>How this was counted</h2></div>
+  <div class="prose">
+    <p><b>The data.</b> One source does nearly all the work: the District of Columbia's
+    public-space tree inventory, layer 23 of the DC GIS Urban Tree Canopy service, maintained by
+    the DDOT Urban Forestry Division. It is a live inventory of
+    <b data-stat="cityTrees">222,660</b> trees, each with a species, a position, a trunk diameter,
+    a condition, a ward, a lidar-derived crown, and &mdash; the field this page is built on
+    &mdash; whether there is an overhead wire above it. Downloaded
+    <span data-stat="generated">&mdash;</span>.</p>
+
+    <p><b>What counts as a cherry.</b> The species fields are free text and they are messy:
+    the same tree is <span class="mono">Prunus Okame</span>,
+    <span class="mono">Prunus 'Okame'</span> and <span class="mono">Okame cherry</span> in
+    different rows, and a handful of records have a genus of <i>Prunus</i> with an oak or a
+    crape myrtle written in the name. Names are normalised with a rule list you can read in
+    <span class="mono">src/classify.py</span>; the mismatched rows are dropped. Of the
+    <b data-stat="prunus">12,829</b> <i>Prunus</i> left, <b data-stat="orn">10,405</b> are
+    ornamental flowering cherries &mdash; the five named cultivars, the Japanese apricots, and
+    <b data-stat="unid">2,247</b> recorded only as <i>Prunus</i>, no cultivar. The rest are
+    chokecherries, black cherries and purple-leaf plums, which are in the charts about wires but
+    not in the ones about blossom.</p>
+
+    <p><b>What this page is not.</b> It is not about the Tidal Basin. Those roughly 3,800 trees
+    belong to the National Park Service and are not in the District's inventory at all, which is
+    why the middle of the map is empty. Nothing here counts them, and the comparisons in the text
+    are against the Park Service's own published figure.</p>
+
+    <p><b>The wire field.</b> It is the inventory's own, recorded at survey time, with four
+    values: none, low voltage, high voltage, both. This page counts the last three together as
+    &ldquo;under a wire.&rdquo; The field is blank or unrecorded on a small minority of rows,
+    which are counted as no wire &mdash; so the 63% is, if anything, a floor.</p>
+
+    <p><b>The thing that would be easy to get wrong.</b> The first version of this analysis said
+    cherries are planted under wires. That is true and it is not the finding, because <i>every</i>
+    small tree is: lilac is higher than cherry, crabapple and redbud are just below it. The honest
+    statement is the ladder in section 02 &mdash; the inventory is sorted by mature height, and the
+    cherry's position in it is a consequence of being a twenty-five-foot tree, not of being a
+    cherry. What makes it worth a page is the second step: because Washington's small-tree slot
+    is filled with cherries specifically, the wire map and the blossom map are the same map.</p>
+
+    <p><b>Crown height.</b> The inventory's lidar crown fields include a maximum height per crown
+    polygon, and for cherries it runs to 127 feet &mdash; which is a neighbouring oak leaning into
+    the polygon, not a cherry. Crown <i>area</i> is used here (it is what the 106 acres is) and
+    crown height is not used at all.</p>
+
+    <p><b>Bloom dates.</b> Sequence only, as the caption in section 04 says, and the whole
+    season slides with whatever date the Tidal Basin peaks in a given year. Twenty-six records on
+    a District-owned campus in Laurel, Maryland are dropped as not being in the city.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Built from the District of Columbia's public-space tree inventory (DC GIS / DDOT Urban
+  Forestry Division, public domain), with bloom order from the
+  <a href="https://www.nps.gov/subjects/cherryblossom/types-of-trees.htm">National Park Service</a>,
+  <a href="https://caseytrees.org/">Casey Trees</a> and
+  <a href="https://landscapeplants.oregonstate.edu/plants/prunus-snow-goose">Oregon State University's
+  Landscape Plants</a>. Code MIT. Not affiliated with the District of Columbia, the National Park
+  Service or the National Cherry Blossom Festival.</p>
+</footer>
+
+</div>
+
+<script id="payload" type="application/json">__PAYLOAD__</script>
+<script>
+"use strict";
+(function () {
+const D = JSON.parse(document.getElementById("payload").textContent);
+
+/* ------------------------------------------------------------------ data */
+function unpack(b64, Type) {
+  const bin = atob(b64), n = bin.length, bytes = new Uint8Array(n);
+  for (let i = 0; i < n; i++) bytes[i] = bin.charCodeAt(i);
+  return new Type(bytes.buffer);
+}
+const T = D.trees, N = T.n, O = T.origin;
+const tx = unpack(T.x, Uint16Array), ty = unpack(T.y, Uint16Array);
+const tkey = unpack(T.key, Uint8Array), tward = unpack(T.ward, Uint8Array);
+const twire = unpack(T.wire, Uint8Array), tdbh = unpack(T.dbh, Uint8Array);
+const tyear = unpack(T.year, Uint16Array), tcrown = unpack(T.crown, Uint16Array);
+const tcond = unpack(T.cond, Uint8Array);
+const lon = i => O.lon + tx[i] * O.scale, lat = i => O.lat + ty[i] * O.scale;
+
+const KEYS = D.keys, BLOOM = D.bloomOrder;
+const KI = {}; KEYS.forEach((k, i) => KI[k] = i);
+const COND = ["not recorded", "excellent", "good", "fair", "poor", "dead"];
+const WIRETXT = ["no overhead wire", "low-voltage wire", "high-voltage wire", "wires overhead"];
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const RAMP = () => ["--b1", "--b2", "--b3", "--b4", "--b5"].map(css);
+const fmt = n => n.toLocaleString("en-US");
+const pct = (a, b) => Math.round(100 * a / b);
+
+/* bloom windows, in days from Tidal Basin peak - defined before the headline
+   numbers because one of them is computed from it */
+const WIN = {};
+BLOOM.forEach(k => {
+  const b = D.cultivars[k] && D.cultivars[k].bloom;
+  if (b) WIN[k] = { off: b[0], half: b[1] };
+});
+const openOnRaw = (key, d) => {
+  const w = WIN[key]; return !!w && d >= w.off - w.half && d <= w.off + w.half;
+};
+
+/* the five cultivars, in bloom order, each with its ramp slot */
+const CULT = BLOOM.map((k, i) => ({ key: k, i: KI[k], slot: i, ...D.cultivars[k] }));
+const BLOOMABLE = new Set(BLOOM.map(k => KI[k]));
+/* an ornamental cherry, for the map's default view */
+const ORN = new Set(Object.keys(D.cultivars).filter(k => D.cultivars[k].ornamental).map(k => KI[k]));
+
+/* --------------------------------------------------------------- numbers */
+const tot = D.totals;
+const STAT = {
+  orn: fmt(tot.ornamental),
+  prunus: fmt(tot.prunus),
+  cityTrees: fmt(tot.cityTrees),
+  ornUnderPct: pct(tot.ornamentalUnder, tot.ornamental) + "%",
+  cityUnderPct: pct(tot.cityUnder, tot.cityTrees) + "%",
+  acres: Math.round(tot.crownAcres),
+  ward2: fmt(D.wards["2"].orn),
+  unid: fmt(D.cultivars.unidentified.n),
+  kwanzan: fmt(D.cultivars.kwanzan.n),
+  dated: fmt(tot.dated),
+  perYear: Math.round(Object.entries(D.plantings)
+    .filter(([y]) => +y >= 2004).reduce((a, [, r]) => a + r.n, 0) /
+    Object.keys(D.plantings).filter(y => +y >= 2004).length),
+  openAtPeak: fmt(BLOOM.reduce((a, k) =>
+    a + (openOnRaw(k, 0) ? D.cultivars[k].n : 0), 0)),
+  generated: new Date(D.generated + "T00:00:00Z").toLocaleDateString("en-US",
+    { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })
+};
+document.querySelectorAll("[data-stat]").forEach(el => {
+  const v = STAT[el.dataset.stat]; if (v !== undefined) el.textContent = v;
+});
+
+/* ===================================================================== map */
+const PAD = 0.004;
+const BB = (() => {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (const w of D.geo.wards) for (const r of w.rings) for (const p of r) {
+    if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0];
+    if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1];
+  }
+  return { x0: x0 - PAD, y0: y0 - PAD, x1: x1 + PAD, y1: y1 + PAD };
+})();
+const MIDLAT = Math.cos((BB.y0 + BB.y1) / 2 * Math.PI / 180);
+
+const PROJ = {};                    /* one cached projection per canvas size */
+function projector(w, h) {
+  const k = w + "x" + h;
+  if (PROJ[k]) return PROJ[k];
+  const gw = (BB.x1 - BB.x0) * MIDLAT, gh = BB.y1 - BB.y0;
+  const s = Math.min(w / gw, h / gh);
+  const ox = (w - gw * s) / 2, oy = (h - gh * s) / 2;
+  const P = {
+    px: lo => ox + (lo - BB.x0) * MIDLAT * s,
+    py: la => oy + (BB.y1 - la) * s,
+    s
+  };
+  /* every tree's screen position, computed once - the hover test and the
+     season replay both walk all 12,829 of them on every frame */
+  P.sx = new Float32Array(N); P.sy = new Float32Array(N);
+  for (let i = 0; i < N; i++) { P.sx[i] = P.px(lon(i)); P.sy[i] = P.py(lat(i)); }
+  PROJ[k] = P;
+  return P;
+}
+
+function drawBase(g, P, w, h, dim) {
+  const land = css("--mapland"), line = css("--mapline"), water = css("--mapwater");
+  g.clearRect(0, 0, w, h);
+  g.fillStyle = css("--mapbg"); g.fillRect(0, 0, w, h);
+
+  const trace = ring => {
+    g.beginPath();
+    for (let i = 0; i < ring.length; i++) {
+      const x = P.px(ring[i][0]), y = P.py(ring[i][1]);
+      i ? g.lineTo(x, y) : g.moveTo(x, y);
+    }
+    g.closePath();
+  };
+
+  /* the District, as one solid silhouette */
+  g.fillStyle = land;
+  for (const wd of D.geo.wards) for (const ring of wd.rings) { trace(ring); g.fill(); }
+  /* the rivers, cut out of it */
+  g.fillStyle = water;
+  for (const ring of D.geo.water) { trace(ring); g.fill(); }
+  /* ward lines, and a heavier line round the outside */
+  g.strokeStyle = line; g.lineWidth = Math.max(1, P.s * 0.00009);
+  for (const wd of D.geo.wards) for (const ring of wd.rings) { trace(ring); g.stroke(); }
+  g.globalAlpha = dim ? .9 : 1;
+  g.globalAlpha = 1;
+}
+
+/* ------------------------------------------------------- the big map ---- */
+const big = document.getElementById("bigmap");
+const bigCtx = big.getContext("2d");
+let mapMode = "bloom", wardFilter = 0;
+const YEAR_LO = 1995, YEAR_HI = 2026;
+
+/* Colours are resolved once per render, never per tree: getComputedStyle inside
+   a 12,829-iteration loop locks the renderer up for seconds. */
+function colourTable(ramp, grey, rose, sky) {
+  if (mapMode === "wires") return i => twire[i] ? rose : sky;
+  if (mapMode === "age") return i => {
+    if (!tyear[i]) return grey;
+    const t = Math.max(0, Math.min(1, (tyear[i] - YEAR_LO) / (YEAR_HI - YEAR_LO)));
+    return ramp[Math.min(4, Math.floor(t * 5))];
+  };
+  const bySlot = KEYS.map(k => { const s = BLOOM.indexOf(k); return s < 0 ? grey : ramp[s]; });
+  return i => bySlot[tkey[i]];
+}
+
+function renderBig() {
+  const w = big.width, h = big.height, P = projector(w, h), ramp = RAMP();
+  drawBase(bigCtx, P, w, h, false);
+  const pick = colourTable(ramp, css("--grey"), css("--rose"), css("--sky"));
+  const r = Math.max(2.2, P.s * 0.000055);
+  /* unidentified and non-ornamental first, so the named cultivars sit on top */
+  for (const pass of [0, 1]) {
+    bigCtx.globalAlpha = pass === 0 ? .5 : .92;
+    for (let i = 0; i < N; i++) {
+      if (wardFilter && tward[i] !== wardFilter) continue;
+      const named = BLOOMABLE.has(tkey[i]);
+      if ((pass === 0) === named) continue;
+      bigCtx.fillStyle = pick(i);
+      bigCtx.beginPath(); bigCtx.arc(P.sx[i], P.sy[i], r, 0, 6.2832); bigCtx.fill();
+    }
+  }
+  bigCtx.globalAlpha = 1;
+}
+
+/* legend */
+const legendEl = document.getElementById("maplegend");
+function renderLegend() {
+  const ramp = RAMP();
+  let items;
+  if (mapMode === "wires") {
+    items = [[css("--rose"), "under an overhead wire"], [css("--sky"), "no wire above it"]];
+  } else if (mapMode === "age") {
+    items = ramp.map((c, i) => [c, i === 0 ? "planted 1995" : i === 4 ? "2026" : ""])
+      .filter(d => d[1]).concat([[css("--grey"), "no planting date recorded"]]);
+    items = [[ramp[0], "1995"], [ramp[1], ""], [ramp[2], ""], [ramp[3], ""], [ramp[4], "2026"],
+      [css("--grey"), "no date recorded"]];
+  } else {
+    items = CULT.map(c => [ramp[c.slot], c.label + " · " + fmt(c.n)])
+      .concat([[css("--grey"), "other Prunus, incl. " + fmt(D.cultivars.unidentified.n) + " unnamed cherries"]]);
+  }
+  legendEl.innerHTML = (mapMode === "bloom"
+    ? '<span class="clabel" style="width:100%">Earliest to latest in bloom</span>' : "") +
+    items.map(d => '<span class="lg"><i class="sw" style="background:' + d[0] + '"></i>' +
+      (d[1] ? "<span>" + d[1] + "</span>" : "") + "</span>").join("");
+}
+
+document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
+  mapMode = b.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach(o =>
+    o.setAttribute("aria-pressed", String(o === b)));
+  renderBig(); renderLegend();
+}));
+
+const wardSel = document.getElementById("wardsel");
+for (let w = 1; w <= 8; w++) {
+  const o = document.createElement("option");
+  o.value = String(w); o.textContent = "Ward " + w + " · " + fmt(D.wards[String(w)].orn) + " cherries";
+  wardSel.appendChild(o);
+}
+wardSel.addEventListener("change", () => { wardFilter = +wardSel.value; renderBig(); });
+
+/* ----------------------------------------------------------- map hover -- */
+const tip = document.getElementById("maptip");
+const wrapEl = big.parentElement;
+big.addEventListener("pointermove", ev => {
+  const rect = big.getBoundingClientRect();
+  const P = projector(big.width, big.height);
+  const sx = (ev.clientX - rect.left) * big.width / rect.width;
+  const sy = (ev.clientY - rect.top) * big.height / rect.height;
+  let best = -1, bd = 26 * 26;
+  for (let i = 0; i < N; i++) {
+    if (wardFilter && tward[i] !== wardFilter) continue;
+    const dx = P.sx[i] - sx, dy = P.sy[i] - sy, d = dx * dx + dy * dy;
+    if (d < bd) { bd = d; best = i; }
+  }
+  if (best < 0) { tip.dataset.on = "0"; return; }
+  const c = D.cultivars[KEYS[tkey[best]]] || { label: "Prunus", sci: "" };
+  tip.innerHTML =
+    "<b>" + c.label + "</b>" + (c.sci ? '<br><i style="opacity:.75">' + c.sci + "</i>" : "") +
+    '<br><span class="k">' + (tward[best] ? "Ward " + tward[best] : "no ward") + "</span>" +
+    "<br>" + WIRETXT[twire[best]] +
+    (tyear[best] ? "<br>planted " + tyear[best] : "") +
+    (tdbh[best] ? "<br>" + (tdbh[best] / 2).toFixed(1) + "″ trunk, " + COND[tcond[best]] : "");
+  tip.dataset.on = "1";
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  let lx = ev.clientX - rect.left + 14, ly = ev.clientY - rect.top - th - 10;
+  if (lx + tw > rect.width) lx = ev.clientX - rect.left - tw - 14;
+  if (ly < 0) ly = ev.clientY - rect.top + 18;
+  tip.style.left = lx + "px"; tip.style.top = ly + "px";
+});
+big.addEventListener("pointerleave", () => tip.dataset.on = "0");
+
+/* ------------------------------------------------------- cultivar cards - */
+(function cards() {
+  const ramp = RAMP();
+  document.getElementById("cultcards").innerHTML = CULT.map(c =>
+    '<div class="cult"><div class="nm"><i class="dot" style="background:' + ramp[c.slot] +
+    '"></i>' + c.label + '</div><div class="sci">' + c.sci + '</div>' +
+    '<div class="n">' + fmt(c.n) + '</div>' +
+    '<div class="meta">' + pct(c.under, c.n) + '% under a wire<br>' +
+    (c.dbhMedian ? 'median trunk ' + c.dbhMedian.toFixed(1) + '″' : '') + '</div></div>'
+  ).join("");
+})();
+
+/* ================================================================= ladder */
+const GENUS_NAME = {
+  Syringa: "Tree lilac", Pistacia: "Chinese pistache", Prunus: "Cherry, plum",
+  Malus: "Crabapple", Cercis: "Redbud", Aescululs: "Horsechestnut",
+  Cladrastis: "Yellowwood", Carpinus: "Hornbeam", Amelanchier: "Serviceberry",
+  Lagerstroemia: "Crape myrtle", Koelreuteria: "Golden rain tree",
+  Magnolia: "Magnolia", Cornus: "Dogwood", Acer: "Maple", Pyrus: "Pear",
+  Zelkova: "Zelkova", Quercus: "Oak", Ulmus: "Elm", Celtis: "Hackberry",
+  Gleditsia: "Honeylocust", Morus: "Mulberry", Betula: "Birch", Ginkgo: "Ginkgo",
+  Nyssa: "Blackgum", Robinia: "Black locust", Platanus: "London plane",
+  Gymnocladus: "Kentucky coffeetree", Tilia: "Linden", Juniperus: "Red cedar",
+  Ilex: "Holly", Liriodendron: "Tulip poplar", Liquidambar: "Sweetgum",
+  Metasequoia: "Dawn redwood", Taxodium: "Bald cypress", Pinus: "Pine"
+};
+(function ladder() {
+  const rows = D.ladder;
+  const max = Math.max(...rows.map(r => r.under / r.n));
+  document.getElementById("ladder").innerHTML = rows.map(r => {
+    const p = r.under / r.n, hi = r.genus === "Prunus";
+    return '<div class="lrow' + (hi ? " hi" : "") + '"><span class="nm">' +
+      (GENUS_NAME[r.genus] || r.genus) + '</span>' +
+      '<span class="track"><span class="bar" style="width:' + (100 * p / max).toFixed(1) + '%"></span></span>' +
+      '<span class="pct">' + Math.round(100 * p) + "%</span></div>";
+  }).join("");
+  table("laddertable",
+    ["Tree", "Trees in inventory", "Under a wire", "Share"],
+    rows.map(r => [GENUS_NAME[r.genus] || r.genus, fmt(r.n), fmt(r.under),
+      Math.round(100 * r.under / r.n) + "%"]),
+    "Under-wire share by genus, District public-space tree inventory.");
+})();
+
+function table(id, head, body, caption) {
+  document.getElementById(id).innerHTML =
+    "<table><caption>" + caption + "</caption><thead><tr>" +
+    head.map(h => "<th>" + h + "</th>").join("") + "</tr></thead><tbody>" +
+    body.map(r => "<tr>" + r.map(c => "<td>" + c + "</td>").join("") + "</tr>").join("") +
+    "</tbody></table>";
+}
+document.querySelectorAll("[data-table]").forEach(b => b.addEventListener("click", () => {
+  const t = document.getElementById(b.dataset.table);
+  t.hidden = !t.hidden;
+  b.textContent = t.hidden ? "Show the numbers" : "Hide the numbers";
+}));
+
+/* ================================================================ scatter */
+(function scatter() {
+  const svg = document.getElementById("scatter");
+  const W = 700, H = 420, L = 56, R = 18, Tp = 18, B = 46;
+  const pts = Object.entries(D.wards).map(([w, v]) => ({
+    ward: +w, x: 100 * v.under / v.trees, y: 100 * v.cherry / v.trees, v
+  }));
+  const xmax = 46, ymax = 10;
+  const X = v => L + (v / xmax) * (W - L - R);
+  const Y = v => H - B - (v / ymax) * (H - B - Tp);
+  let s = "";
+  for (let g = 0; g <= 40; g += 10)
+    s += '<line class="grid" x1="' + X(g) + '" y1="' + Tp + '" x2="' + X(g) + '" y2="' + (H - B) + '"/>' +
+      '<text x="' + X(g) + '" y="' + (H - B + 18) + '" text-anchor="middle">' + g + '%</text>';
+  for (let g = 0; g <= 10; g += 2)
+    s += '<line class="grid" x1="' + L + '" y1="' + Y(g) + '" x2="' + (W - R) + '" y2="' + Y(g) + '"/>' +
+      '<text x="' + (L - 9) + '" y="' + (Y(g) + 4) + '" text-anchor="end">' + g + '%</text>';
+  s += '<text class="lab" x="' + ((L + W - R) / 2) + '" y="' + (H - 8) +
+    '" text-anchor="middle">street trees with a wire overhead</text>';
+  s += '<text class="lab" x="-' + ((Tp + H - B) / 2) + '" y="15" text-anchor="middle" ' +
+    'transform="rotate(-90)">street trees that are cherries</text>';
+  /* Wards 2 and 6 sit almost exactly on top of each other, so labels are
+     pushed apart vertically rather than left where they would overlap. */
+  const placed = pts.map(p => ({ p, lx: X(p.x) + (p.x > 34 ? -15 : 15), ly: Y(p.y) + 4,
+                                 anchor: p.x > 34 ? "end" : "start" }))
+                    .sort((a, b) => a.ly - b.ly);
+  for (let i = 1; i < placed.length; i++)
+    if (placed[i].ly - placed[i - 1].ly < 16) placed[i].ly = placed[i - 1].ly + 16;
+  for (const { p } of placed) {
+    const noWire = p.x < 5;
+    s += '<circle cx="' + X(p.x) + '" cy="' + Y(p.y) + '" r="9" fill="' +
+      (noWire ? "var(--sky)" : "var(--rose)") + '" stroke="var(--card)" stroke-width="2"/>';
+  }
+  for (const d of placed) {
+    /* a hairline leader, for the two whose label had to move */
+    if (Math.abs(d.ly - (Y(d.p.y) + 4)) > 3)
+      s += '<line x1="' + (X(d.p.x) + (d.anchor === "end" ? -9 : 9)) + '" y1="' + Y(d.p.y) +
+        '" x2="' + (d.lx - (d.anchor === "end" ? -3 : 3)) + '" y2="' + (d.ly - 4) +
+        '" class="axis"/>';
+    s += '<text class="lab strong" x="' + d.lx + '" y="' + d.ly + '" text-anchor="' +
+      d.anchor + '">Ward ' + d.p.ward + '</text>';
+  }
+  /* Pearson r across the eight wards, stated on the chart rather than only in
+     the prose, so the figure stands alone */
+  const mx = pts.reduce((a, p) => a + p.x, 0) / pts.length;
+  const my = pts.reduce((a, p) => a + p.y, 0) / pts.length;
+  const r = pts.reduce((a, p) => a + (p.x - mx) * (p.y - my), 0) /
+    Math.sqrt(pts.reduce((a, p) => a + (p.x - mx) ** 2, 0) *
+              pts.reduce((a, p) => a + (p.y - my) ** 2, 0));
+  s += '<text class="lab strong" x="' + (W - R) + '" y="' + (Tp + 14) +
+    '" text-anchor="end">r = ' + r.toFixed(2) + ' across the eight wards</text>';
+  svg.innerHTML = s;
+  table("wardtable",
+    ["Ward", "Street trees", "Under a wire", "Cherries (all Prunus)", "Flowering cherries"],
+    pts.sort((a, b) => a.ward - b.ward).map(p =>
+      [p.ward, fmt(p.v.trees), Math.round(p.x) + "%", fmt(p.v.cherry), fmt(p.v.orn)]),
+    "Overhead wires and cherries by ward.");
+})();
+
+/* ================================================== season: bloom windows */
+/* open(key, day) -> true if that cultivar is in open flower on `day`,
+   measured in days from Tidal Basin Yoshino peak. */
+const DAY0 = -24, DAY1 = 24;
+const openOn = openOnRaw;
+function seriesFor(d) {
+  return CULT.map(c => openOn(c.key, d) ? c.n : 0);
+}
+
+(function seasonChart() {
+  /* Five bloom windows on one time axis, plus the running total underneath.
+     A stacked area was tried first and read as a wall of near-identical pinks
+     with no way to tell which band was which; five direct-labelled ranges say
+     the same thing and name themselves. */
+  const svg = document.getElementById("seasonchart");
+  const W = 700, H = 300, L = 96, R = 20, Tp = 16;
+  const ROW = 30, TOTH = 74;
+  const rowsTop = Tp + 6, axisY = rowsTop + CULT.length * ROW + 6;
+  const totTop = axisY + 26, totBot = totTop + TOTH;
+  const X = d => L + ((d - DAY0) / (DAY1 - DAY0)) * (W - L - R);
+  const ramp = RAMP();
+  let s = "";
+
+  /* day gridlines behind everything */
+  for (let d = DAY0; d <= DAY1; d += 8)
+    s += '<line class="grid" x1="' + X(d) + '" y1="' + rowsTop + '" x2="' + X(d) +
+      '" y2="' + totBot + '"/>';
+
+  CULT.forEach((c, ci) => {
+    const y = rowsTop + ci * ROW, w = c.bloom;
+    const x0 = X(w[0] - w[1]), x1 = X(w[0] + w[1]);
+    s += '<rect x="' + x0 + '" y="' + (y + 5) + '" width="' + (x1 - x0) +
+      '" height="' + (ROW - 12) + '" rx="4" fill="' + ramp[ci] + '" opacity="' +
+      (w[2] ? ".55" : ".95") + '"' + (w[2] ? ' stroke="' + ramp[ci] +
+      '" stroke-width="1.5" stroke-dasharray="5 3"' : "") + "/>";
+    s += '<text class="lab strong" x="' + (L - 10) + '" y="' + (y + ROW / 2 + 1) +
+      '" text-anchor="end">' + c.label + '</text>';
+    s += '<text x="' + (x1 + 7) + '" y="' + (y + ROW / 2 + 1) + '">' + fmt(c.n) +
+      (w[2] ? " · approx." : "") + "</text>";
+  });
+
+  /* the running total, as its own small plot with its own baseline */
+  const days = []; for (let d = DAY0; d <= DAY1; d++) days.push(d);
+  const totals = days.map(d => seriesFor(d).reduce((a, b) => a + b, 0));
+  const tmax = Math.max(...totals);
+  const TY = v => totBot - (v / tmax) * (TOTH - 8);
+  let area = "M" + X(DAY0) + " " + totBot + " ";
+  days.forEach((d, i) => {
+    area += "L" + X(d) + " " + TY(totals[i]) + " ";
+    if (i < days.length - 1) area += "L" + X(d + 1) + " " + TY(totals[i]) + " ";
+  });
+  area += "L" + X(DAY1) + " " + totBot + " Z";
+  s += '<path d="' + area + '" fill="var(--b3)" opacity=".28"/>';
+  s += '<path d="' + area + '" fill="none" stroke="var(--b3)" stroke-width="2"/>';
+  s += '<line class="axis" x1="' + L + '" y1="' + totBot + '" x2="' + (W - R) +
+    '" y2="' + totBot + '"/>';
+  s += '<text class="lab" x="' + (L - 10) + '" y="' + (totTop + 12) +
+    '" text-anchor="end">all five, at once</text>';
+  s += '<text x="' + (L - 10) + '" y="' + (totBot - 2) + '" text-anchor="end">0</text>';
+  s += '<text x="' + (X(days[totals.indexOf(tmax)]) + 6) + '" y="' + (TY(tmax) + 12) +
+    '" class="strong">' + fmt(tmax) + ' in flower</text>';
+
+  /* the Tidal Basin marker runs the height of both plots */
+  s += '<line x1="' + X(0) + '" y1="' + rowsTop + '" x2="' + X(0) + '" y2="' + totBot +
+    '" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+  s += '<text class="lab strong" x="' + (X(0) + 6) + '" y="' + (rowsTop - 3) +
+    '">Tidal Basin peak</text>';
+
+  for (let d = DAY0; d <= DAY1; d += 8)
+    s += '<text x="' + X(d) + '" y="' + (axisY + 13) + '" text-anchor="middle">' +
+      (d > 0 ? "+" + d : d) + '</text>';
+  s += '<text class="lab" x="' + ((L + W - R) / 2) + '" y="' + (H - 2) +
+    '" text-anchor="middle">days from Tidal Basin peak bloom</text>';
+  svg.innerHTML = s;
+
+  const rows = [];
+  for (let d = DAY0; d <= DAY1; d += 2) {
+    const ser = seriesFor(d);
+    rows.push([(d > 0 ? "+" : "") + d].concat(ser.map(v => v ? fmt(v) : "—"),
+      [fmt(ser.reduce((a, b) => a + b, 0))]));
+  }
+  table("seasontable", ["Day"].concat(CULT.map(c => c.label), ["In flower"]), rows,
+    "Cherries in open flower by day, on the published bloom order.");
+})();
+
+/* ------------------------------------------------------- the bloom map -- */
+const bm = document.getElementById("bloommap"), bmCtx = bm.getContext("2d");
+const slider = document.getElementById("dayslider"), dayLabel = document.getElementById("daylabel");
+const ORN_MASK = KEYS.map(k => ORN.has(KI[k]));
+const SLOT_OF = KEYS.map(k => BLOOM.indexOf(k));
+function renderBloom(day) {
+  const w = bm.width, h = bm.height, P = projector(w, h), ramp = RAMP();
+  drawBase(bmCtx, P, w, h, true);
+  const r = Math.max(2, P.s * 0.00005);
+  /* resolved once per frame, not once per tree */
+  const isOpen = KEYS.map(k => openOn(k, day));
+  /* everything dormant, faint */
+  bmCtx.fillStyle = css("--grey"); bmCtx.globalAlpha = .5;
+  for (let i = 0; i < N; i++) {
+    if (!ORN_MASK[tkey[i]]) continue;
+    bmCtx.beginPath(); bmCtx.arc(P.sx[i], P.sy[i], r * .75, 0, 6.2832); bmCtx.fill();
+  }
+  /* in flower, bright - one pass per cultivar so fillStyle is set five times */
+  bmCtx.globalAlpha = .95;
+  let open = 0;
+  for (let s = 0; s < ramp.length; s++) {
+    bmCtx.fillStyle = ramp[s];
+    for (let i = 0; i < N; i++) {
+      const k = tkey[i];
+      if (SLOT_OF[k] !== s || !isOpen[k]) continue;
+      open++;
+      bmCtx.beginPath(); bmCtx.arc(P.sx[i], P.sy[i], r * 1.5, 0, 6.2832); bmCtx.fill();
+    }
+  }
+  bmCtx.globalAlpha = 1;
+  const names = CULT.filter(c => openOn(c.key, day)).map(c => c.label);
+  dayLabel.textContent = (day === 0 ? "peak day" : (day > 0 ? "+" + day : day) + " days") +
+    " · " + fmt(open) + " open";
+  dayLabel.title = names.join(", ") || "none in flower";
+}
+slider.addEventListener("input", () => renderBloom(+slider.value));
+
+let playing = null;
+const playBtn = document.getElementById("playbtn");
+playBtn.addEventListener("click", () => {
+  if (playing) { clearInterval(playing); playing = null; playBtn.setAttribute("aria-pressed", "false");
+    playBtn.innerHTML = "▶&nbsp; Play the season"; return; }
+  playBtn.setAttribute("aria-pressed", "true");
+  playBtn.innerHTML = "■&nbsp; Stop";
+  slider.value = String(DAY0);
+  playing = setInterval(() => {
+    let d = +slider.value + 1;
+    if (d > DAY1) { clearInterval(playing); playing = null;
+      playBtn.setAttribute("aria-pressed", "false");
+      playBtn.innerHTML = "▶&nbsp; Play the season"; return; }
+    slider.value = String(d); renderBloom(d);
+  }, 160);
+});
+
+/* =============================================================== planting */
+(function planting() {
+  const svg = document.getElementById("plantchart");
+  const W = 700, H = 340, L = 46, R = 14, Tp = 14, B = 74, STRIP = 34;
+  const years = Object.keys(D.plantings).map(Number).sort((a, b) => a - b);
+  const plotB = H - B;                       /* bottom of the bar plot */
+  const ymax = Math.ceil(Math.max(...years.map(y => D.plantings[String(y)].n)) / 100) * 100;
+  const bw = (W - L - R) / years.length;
+  const X = i => L + i * bw;
+  const Y = v => plotB - (v / ymax) * (plotB - Tp);
+  const ramp = RAMP();
+  let s = "";
+  for (let g = 0; g <= ymax; g += 100)
+    s += '<line class="grid" x1="' + L + '" y1="' + Y(g) + '" x2="' + (W - R) + '" y2="' + Y(g) + '"/>' +
+      '<text x="' + (L - 8) + '" y="' + (Y(g) + 4) + '" text-anchor="end">' + g + '</text>';
+  years.forEach((y, i) => {
+    const row = D.plantings[String(y)];
+    let acc = 0;
+    CULT.forEach((c, ci) => {
+      const v = row[c.key] || 0; if (!v) return;
+      const y1 = Y(acc), y0 = Y(acc + v);
+      s += '<rect x="' + (X(i) + 1.5) + '" y="' + y0 + '" width="' + (bw - 3) +
+        '" height="' + Math.max(0, y1 - y0 - 1) + '" fill="' + ramp[ci] + '" rx="1.5"/>';
+      acc += v;
+    });
+    const other = row.n - acc;
+    if (other > 0) {
+      const y1 = Y(acc), y0 = Y(acc + other);
+      s += '<rect x="' + (X(i) + 1.5) + '" y="' + y0 + '" width="' + (bw - 3) +
+        '" height="' + Math.max(0, y1 - y0 - 1) + '" fill="var(--grey)" rx="1.5"/>';
+    }
+    if (y % 5 === 0 || y === years[years.length - 1])
+      s += '<text x="' + (X(i) + bw / 2) + '" y="' + (plotB + 15) + '" text-anchor="middle">' +
+        ("" + y).slice(2) + '</text>';
+  });
+  /* the wire strip: a separate small plot, not a second axis on the same one */
+  const sy = plotB + 26;
+  s += '<text class="lab" x="' + L + '" y="' + (sy + 9) + '">planted under a wire</text>';
+  let line = "";
+  years.forEach((y, i) => {
+    const row = D.plantings[String(y)], p = row.n ? row.under / row.n : 0;
+    line += (i ? "L" : "M") + (X(i) + bw / 2) + " " + (sy + STRIP - p * (STRIP - 12)) + " ";
+  });
+  s += '<line class="axis" x1="' + L + '" y1="' + (sy + STRIP) + '" x2="' + (W - R) +
+    '" y2="' + (sy + STRIP) + '"/>';
+  s += '<path d="' + line + '" fill="none" stroke="var(--rose)" stroke-width="2"/>';
+  s += '<text x="' + (W - R) + '" y="' + (sy + 9) + '" text-anchor="end">100%</text>';
+  svg.innerHTML = s;
+
+  table("planttable", ["Year", ...CULT.map(c => c.label), "Unnamed", "Total", "Under a wire"],
+    years.map(y => {
+      const r = D.plantings[String(y)];
+      const named = CULT.reduce((a, c) => a + (r[c.key] || 0), 0);
+      return [y, ...CULT.map(c => r[c.key] || 0), r.n - named, r.n,
+        Math.round(100 * r.under / r.n) + "%"];
+    }),
+    "Flowering cherries planted per year, where the inventory records a date.");
+})();
+
+/* ------------------------------------------------------------------ init */
+function paint() { renderBig(); renderLegend(); renderBloom(+slider.value); }
+paint();
+if (window.matchMedia) {
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  (mq.addEventListener || mq.addListener).call(mq, "change", paint);
+}
+})();
+</script>
