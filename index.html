@@ -273,7 +273,7 @@ footer a{color:var(--ink2)}
     <div class="legend" id="maplegend"></div>
     <figcaption>Every <i>Prunus</i> in the District's public-space tree inventory, one dot each.
     The Tidal Basin grove is <b>not in this data</b> &mdash; those trees belong to the National Park
-    Service, which keeps its own books. The empty wedge in the middle of the map is the National Mall
+    Service, which keeps its own books. The gap through the middle of the map is the National Mall
     and the federal core, for the same reason.</figcaption>
   </figure>
 
@@ -323,7 +323,7 @@ footer a{color:var(--ink2)}
   <div class="shead"><span class="sno">03</span><h2>Where the wires are buried, nobody plants cherries</h2></div>
   <div class="prose">
     <p class="lede">Washington's eight wards do not share their wires evenly. Downtown and the
-    old rowhouse core put theirs underground long ago; the rest of the city did not. That split
+    old rowhouse core have almost none left overhead; the rest of the city has plenty. That split
     turns out to predict, almost exactly, where the cherry trees are.</p>
     <p>In Wards 1, 2 and 6 &mdash; where barely one street tree in a hundred has a wire above it
     &mdash; cherries are about <b>2%</b> of the trees. In Wards 3, 4, 7 and 8, where roughly
@@ -368,8 +368,7 @@ footer a{color:var(--ink2)}
     else, the Kwanzans.</p>
     <p>Two waves, with a real gap between them. On these windows the Yoshinos are over about
     five days after peak and the Kwanzans have not started for another three, so for the best
-    part of a week Washington has almost no cherry blossom at all &mdash; which is roughly when
-    the last of the visitors are still arriving.</p>
+    part of a week Washington has almost no cherry blossom at all.</p>
     <p>Drag the date. The map redraws with only the trees that should be in flower on that day,
     and the chart shows how many that is.</p>
   </div>
@@ -422,8 +421,8 @@ footer a{color:var(--ink2)}
     the flowering cherries. Since 2004 the District has put in
     <b data-stat="perYear">288</b> a year on average, and the mix has kept changing. Snow Goose
     was a few dozen a year until about 2010 and then became a house standard, peaking at 192 in
-    2019. Okame went in at single digits through the late 2000s and has run above a hundred a
-    year since 2022.</p>
+    2019. Okame barely registered through the late 2000s and has not
+    been fewer than fifty in any full year since 2016.</p>
     <p>The share going in under a wire has been falling the whole time: <b>94%</b> of the
     cherries planted before 2005, <b>61%</b> of those planted since 2020. Some of that is
     undergrounding, some is a wider planting list. The cherry is slowly becoming a tree
@@ -1064,10 +1063,15 @@ playBtn.addEventListener("click", () => {
 /* ------------------------------------------------------------------ init */
 function paint() { renderBig(); renderLegend(); renderBloom(+slider.value); }
 paint();
+/* the canvases bake their colours in, so they have to be told when the theme
+   moves under them - both by the OS and by the data-theme attribute the
+   catalog's pages use */
 if (window.matchMedia) {
   const mq = window.matchMedia("(prefers-color-scheme: dark)");
   (mq.addEventListener || mq.addListener).call(mq, "change", paint);
 }
+new MutationObserver(paint).observe(document.documentElement,
+  { attributes: true, attributeFilter: ["data-theme"] });
 })();
 </script>
 
