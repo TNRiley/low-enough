@@ -3,9 +3,9 @@
 The pipeline that builds `index.html`. Run from the project directory, in this order:
 
 ```bash
-python src/fetch_trees.py   data/dc_prunus_raw.json
-python src/fetch_context.py data/
-python src/build_payload.py data/ src/payload.json
+python src/fetch_trees.py   src/data/dc_prunus_raw.json
+python src/fetch_context.py src/data/
+python src/build_payload.py src/data/ src/payload.json
 python src/inject.py
 ```
 
@@ -18,7 +18,7 @@ python src/inject.py
 | `template.html` | the page, with a `__PAYLOAD__` placeholder |
 | `inject.py` | splices the two, then runs the catalog's `wrap_for_pages.py` and `add_catalog_link.py` |
 
-The raw downloads land in `data/` and are gitignored — the fetchers refetch them. The one
+The raw downloads land in `src/data/` and are gitignored — the fetchers refetch them. The one
 thing that is *not* reproducible from the scripts is the inventory itself: it is live, so a
 later run will differ slightly as trees are planted, removed and re-surveyed.
 `REBUILD.md` in the project root carries a verification table of the values as built.

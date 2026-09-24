@@ -5,7 +5,7 @@ Source: DC GIS, Urban Tree Canopy map service, layer 23 "UFA Street Trees" -
 the District Department of Transportation Urban Forestry Division's inventory of
 every tree in public space. ~222,000 records, of which ~12,900 are Prunus.
 
-    python src/fetch_trees.py data/dc_prunus_raw.json
+    python src/fetch_trees.py src/data/dc_prunus_raw.json
 
 The service caps a query at 2,000 records, so this pages by OBJECTID. Geometry is
 requested in WGS84 (outSR=4326); the service's own projection is Web Mercator.
@@ -50,4 +50,4 @@ def main(out):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data/dc_prunus_raw.json")
+    main(sys.argv[1] if len(sys.argv) > 1 else "src/data/dc_prunus_raw.json")

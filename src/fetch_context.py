@@ -9,7 +9,7 @@ Three things, all from DC GIS:
   2. ward boundaries (Ward - 2022);
   3. hydrography polygons, so the river is visible on the map.
 
-    python src/fetch_context.py data/
+    python src/fetch_context.py src/data/
 
 Both boundary layers are simplified here rather than in the browser: the raw ward
 polygons are ~1 MB and the page only needs a recognisable outline.
@@ -81,4 +81,4 @@ def main(outdir):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data")
+    main(sys.argv[1] if len(sys.argv) > 1 else "src/data")

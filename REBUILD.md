@@ -244,9 +244,9 @@ Non-negotiable, and all of it is in section 06 of the page:
 ## 7. Running it
 
 ```bash
-python src/fetch_trees.py   data/dc_prunus_raw.json   # ~13k rows, a couple of minutes
-python src/fetch_context.py data/                     # counts + ward and water geometry
-python src/build_payload.py data/ src/payload.json    # ~257 KB
+python src/fetch_trees.py   src/data/dc_prunus_raw.json   # ~13k rows, a couple of minutes
+python src/fetch_context.py src/data/           # counts + ward and water geometry
+python src/build_payload.py src/data/ src/payload.json    # ~257 KB
 python src/inject.py                                  # → index.html, wrapped and linked
 ```
 

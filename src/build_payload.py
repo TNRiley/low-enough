@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn the raw downloads into the single JSON payload the page carries.
 
-    python src/build_payload.py data/ src/payload.json
+    python src/build_payload.py src/data/ src/payload.json
 
 Everything the page draws is computed here; the browser only decodes and plots.
 The per-tree table is packed into parallel typed arrays and base64'd, because
@@ -245,5 +245,5 @@ def main(datadir, out):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "data",
+    main(sys.argv[1] if len(sys.argv) > 1 else "src/data",
          sys.argv[2] if len(sys.argv) > 2 else "src/payload.json")

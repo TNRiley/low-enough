@@ -1,0 +1,6 @@
+# The raw harvest: every Prunus record in DC's public-space tree inventory (~7 MB),
+# the city-wide genus x wires x ward counts, and the ward and waterbody polygons.
+# All of it is refetched by the scripts in ../ -- see ../README.md and
+# ../../REBUILD.md. This file is the only thing here that is tracked.
+*
+!.gitignore
